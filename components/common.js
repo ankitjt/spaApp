@@ -1,6 +1,6 @@
 export const mainNavbar = () =>
 {
-  const html = `
+  const html = html`
   <div class="flex items-center justify-between uppercase text-slate-400 h-full px-6">
       <a href="#/home" class="site-link pb-1" data-link="home">Hm</a>
       <span class="rounded-full bg-slate-400 p-[2px]"></span>
@@ -27,7 +27,7 @@ export const mainNavbar = () =>
 
 export const expensesNavbar = () =>
 {
-  const html = `
+  const html = html`
   
     <div class="flex items-center w-full uppercase text-slate-400 h-full px-6">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 showMainNavbar">
@@ -55,6 +55,6 @@ export const expensesNavbar = () =>
 
 export const siteHeader = () =>
 {
-  const html = `<div class="pageName h-full flex items-center uppercase px-6"></div>`
+  const html = html`<div class="pageName h-full flex items-center uppercase px-6"></div>`
   return { html }
 }
