@@ -6,17 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>spaApp</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="./styles.css">
 
 </head>
 
-<body class="h-full bg-white dark:bg-[#222222] dark:text-slate-300 p-6 text-sm">
+<body class="h-full bg-white dark:bg-[#222222] dark:text-slate-400 p-6 text-sm">
 
-  <div class="headerContainer fixed top-0 left-0 w-full bg-black h-16 "></div>
-  <div class="navbarContainer fixed bottom-0 left-0 w-full bg-black h-16"></div>
+  <div class="headerContainer fixed top-0 left-0 w-full bg-[#111] h-16 font-bold"></div>
+  <div class="navbarContainer fixed bottom-0 left-0 w-full bg-[#111] h-16 font-bold"></div>
+  <div class="floatBar fixed bottom-20 left-6 w-1/2 bg-[#111] h-auto rounded-lg hidden text-white font-bold"></div>
   <div class="contentContainer pt-16"></div>
 
+  <!-- Firebase Scripts  -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
   <script type="module" src="./app.js"></script>
+  <script src="./dbConnect.js"></script>
 </body>
 
 </html>
