@@ -1,9 +1,10 @@
-export const mainNavbar = () => {
+export const mainNavbar = () =>
+{
   const html = /* html */`
   <div class="flex items-center justify-between uppercase text-slate-600 h-full px-6 siteNavbar">
       <a href="#/home" class="site-link pb-1" data-link="home">Hm</a>
       <span class="rounded-full bg-slate-600 p-[2px]"></span>
-      <a href="#/expenses/ledger" class="site-link pb-1" data-link="expenses">Ex</a>
+      <a href="#/expenses/ledger" class="site-link pb-1" data-link="ledger">Ex</a>
       <span class="rounded-full bg-slate-600 p-[2px]"></span>
       <a href="#/habits" class="site-link pb-1" data-link="habits">Hb</a>
       <span class="rounded-full bg-slate-600 p-[2px]"></span>
@@ -13,11 +14,12 @@ export const mainNavbar = () => {
   return { html }
 }
 
-export const floatMainNavbar = () => {
+export const floatMainNavbar = () =>
+{
   const html = /* html */`
   <div class="flex flex-col gap-y-3 uppercase h-full p-4">
       <a href="#/home" class="site-link floatLinks pb-1" data-link="home">Home</a>
-      <a href="#/expenses/ledger" class="site-link floatLinks pb-1" data-link="expenses" >Expenses</a>
+      <a href="#/expenses/ledger" class="site-link floatLinks pb-1" data-link="ledger" >Expenses</a>
       <a href="#/habits" class="site-link floatLinks pb-1" data-link="habits" >Habits</a>
       <a href="#/counts" class="site-link floatLinks pb-1" data-link="counts" >Counts</a>
   </div>
@@ -25,7 +27,8 @@ export const floatMainNavbar = () => {
   return { html }
 }
 
-export const expensesNavbar = () => {
+export const expensesNavbar = () =>
+{
   const html = /* html */`
 
     <div class="flex items-center w-full uppercase text-slate-600 h-full px-6">
@@ -50,19 +53,11 @@ export const expensesNavbar = () => {
     </div>
   `
 
-  const init = () => {
-    // const showMainNavbar = document.querySelector(".showMainNavbar")
-    // const expenseNavbar = document.querySelector(".expenseNavbar")
-    // showMainNavbar.addEventListener("click", () => {
-    //   console.log('clicked')
-    //   expenseNavbar.classList.toggle("hidden")
-    // })
-  }
-
-  return { html, init }
+  return { html }
 }
 
-export const countsNavbar = () => {
+export const countsNavbar = () =>
+{
   const html = /* html */`
 
     <div class="flex items-center w-full uppercase text-slate-600 h-full px-6">
@@ -86,7 +81,18 @@ export const countsNavbar = () => {
   return { html }
 }
 
-export const siteHeader = () => {
+export const siteHeader = () =>
+{
   const html = /*html */ `<div class="pageName h-full flex items-center uppercase text-white px-6"></div>`
   return { html }
+}
+
+export const todayDate = () =>
+{
+  let today = new Date()
+  let year = today.getFullYear()
+  let month = String( today.getMonth() + 1 ).padStart( 2, '0' )
+  let date = String( today.getDate() ).padStart( 2, '0' )
+  let dateToday = `${ year }-${ month }-${ date }`
+  return { year, month, date, dateToday }
 }

@@ -1,7 +1,8 @@
-export const Stats = () => {
+export const Stats = () =>
+{
   const html = /* html */`
   <section data-name="Statistics"
-  class="ex-statsWrapper ex-sections min-h-screen transition-all ease-in-out duration-500 px-5 py-3">
+  class="statsWrapper pb-20 transition-all ease-in-out duration-500 font-semibold text-black ">
 
   <!-- Stats Filter  -->
   <div class="statsFilter flex items-center justify-between mt-3">

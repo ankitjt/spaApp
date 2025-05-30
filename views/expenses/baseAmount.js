@@ -1,7 +1,8 @@
-export const BaseAmount = () => {
+export const BaseAmount = () =>
+{
   const html = /*html*/`
   <section data-name="Base Amount"
-  class="ex-baseAmountWrapper ex-sections transition-all ease-in-out duration-500 font-bold">
+  class="baseAmount pb-20 transition-all ease-in-out duration-500 font-bold">
 
   <!-- baseAmount Details  -->
   <section class="ex-baseAmount flex flex-col gap-y-10">

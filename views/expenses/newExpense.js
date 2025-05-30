@@ -1,4 +1,5 @@
-export const NewExpense = () => {
+export const NewExpense = () =>
+{
 
   const newExpenseInputs = /* html */ `
     <div class="expenseInputsWrapper flex flex-col gap-y-5">
@@ -140,55 +141,64 @@ export const NewExpense = () => {
 
   const html = /* html */ `
   <section data-name="New Expense"
-  class="expenseWrapper  transition-all ease-in-out duration-500 font-semibold text-black ">
-  ${newExpenseInputs}
-  ${newExpenseButton}
+  class="expenseWrapper pb-20 transition-all ease-in-out duration-500 font-semibold text-black ">
+  ${ newExpenseInputs }
+  ${ newExpenseButton }
   </section>
   `
 
-  const init = () => {
-    const addExpenseButton = document.querySelector(".addExpenseButton")
-    const expenseInputs = document.querySelectorAll(".ex-expenseInputs")
+  const init = () =>
+  {
+    const addExpenseButton = document.querySelector( ".addExpenseButton" )
+    const expenseInputs = document.querySelectorAll( ".ex-expenseInputs" )
 
-    addExpenseButton.addEventListener("click", () => {
+    addExpenseButton.addEventListener( "click", () =>
+    {
 
-      let allFilled = true;
+      let allFilled = true
       let formData = {}
 
-      expenseInputs.forEach(input => {
-        if (input.value === "") {
+      expenseInputs.forEach( input =>
+      {
+        if ( input.value === "" )
+        {
           allFilled = false
-          input.classList.add("border-2", "border-rose-600")
+          input.classList.add( "border-2", "border-rose-600" )
         }
-        else {
-          input.classList.remove("border-2", "border-rose-600")
+        else
+        {
+          input.classList.remove( "border-2", "border-rose-600" )
         }
-      })
+      } )
 
-      if (allFilled) {
-        expenseInputs.forEach(input => {
-          formData[ input.getAttribute("name") ] = input.value
-        })
-        formData[ "tag" ] = "NA";
-        formData[ "tagColor" ] = "NA";
-        formData[ "entryFullDate" ] = "NA";
-        formData[ "firebaseTimestamp" ] = firebase.firestore.FieldValue.serverTimestamp();
-        formData[ "entryYear" ] = "NA";
-        formData[ "entryMonth" ] = "NA";
-        formData[ "entryDate" ] = "NA";
+      if ( allFilled )
+      {
+        expenseInputs.forEach( input =>
+        {
+          formData[ input.getAttribute( "name" ) ] = input.value
+        } )
+        formData[ "tag" ] = "NA"
+        formData[ "tagColor" ] = "NA"
+        formData[ "entryFullDate" ] = "NA"
+        formData[ "firebaseTimestamp" ] = firebase.firestore.FieldValue.serverTimestamp()
+        formData[ "entryYear" ] = "NA"
+        formData[ "entryMonth" ] = "NA"
+        formData[ "entryDate" ] = "NA"
         formData[ "clearRecord" ] = "NA"
 
-        db.collection("expenseDetails").add(formData)
-          .then(() => {
-            console.log("Data added.")
-            expenseInputs.forEach(input => {
+        db.collection( "expenseDetails" ).add( formData )
+          .then( () =>
+          {
+            console.log( "Data added." )
+            expenseInputs.forEach( input =>
+            {
               input.value = ""
-            })
-          })
-          .catch(err => console.log(err))
+            } )
+          } )
+          .catch( err => console.log( err ) )
       }
 
-    })
+    } )
   }
 
   return { html, init }
