@@ -1,3 +1,7 @@
+import { todayDate } from '../../components/common.js'
+
+const { year, month } = todayDate()
+
 export const NewExpense = () =>
 {
 
@@ -152,6 +156,25 @@ export const NewExpense = () =>
     const addExpenseButton = document.querySelector( ".addExpenseButton" )
     const expenseInputs = document.querySelectorAll( ".ex-expenseInputs" )
 
+    const tags = document.querySelectorAll( ".ex-tag" )
+    let selectedTag = ""
+    let tagColor = ""
+
+    tags.forEach( tagIcon =>
+    {
+      tagIcon.addEventListener( "click", () =>
+      {
+        tags.forEach( userTag =>
+        {
+          userTag.classList.remove( "bg-black" )
+        } )
+        tagIcon.classList.add( "bg-black" )
+        selectedTag = tagIcon.dataset.tag
+        tagColor = tagIcon.dataset.color
+
+      } )
+    } )
+
     addExpenseButton.addEventListener( "click", () =>
     {
 
@@ -171,20 +194,39 @@ export const NewExpense = () =>
         }
       } )
 
+      if ( selectedTag === "" )
+      {
+        allFilled = false
+        console.log( "Select a Tag." )
+      }
+
       if ( allFilled )
       {
+        let userYear = 0
+        let userMonth = 0
+
         expenseInputs.forEach( input =>
         {
-          formData[ input.getAttribute( "name" ) ] = input.value
+          formData[ input.getAttribute( "id" ) ] = input.value
+          if ( input.type === "date" )
+          {
+            formData[ "userDate" ] = input.value
+            let userDate = input.value.split( "-" )
+            userYear = Number( userDate[ 0 ] )
+            userMonth = Number( userDate[ 1 ] )
+          }
         } )
-        formData[ "tag" ] = "NA"
-        formData[ "tagColor" ] = "NA"
-        formData[ "entryFullDate" ] = "NA"
+
         formData[ "firebaseTimestamp" ] = firebase.firestore.FieldValue.serverTimestamp()
-        formData[ "entryYear" ] = "NA"
-        formData[ "entryMonth" ] = "NA"
-        formData[ "entryDate" ] = "NA"
+        formData[ "userYear" ] = userYear
+        formData[ "systemYear" ] = year
+        formData[ "userMonth" ] = userMonth
+        formData[ "systemMonth" ] = Number( month )
         formData[ "clearRecord" ] = "NA"
+        formData[ "tag" ] = selectedTag
+        formData[ "tagColor" ] = tagColor
+
+        console.log( formData )
 
         db.collection( "expenseDetails" ).add( formData )
           .then( () =>
@@ -193,6 +235,10 @@ export const NewExpense = () =>
             expenseInputs.forEach( input =>
             {
               input.value = ""
+            } )
+            tags.forEach( tag =>
+            {
+              tag.classList.remove( "bg-black" )
             } )
           } )
           .catch( err => console.log( err ) )
