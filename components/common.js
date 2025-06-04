@@ -1,5 +1,4 @@
-export const mainNavbar = () =>
-{
+export const mainNavbar = () => {
   const html = /* html */`
   <div class="flex items-center justify-between uppercase text-slate-600 h-full px-6 siteNavbar">
       <a href="#/home" class="site-link pb-1" data-link="home">Hm</a>
@@ -14,8 +13,7 @@ export const mainNavbar = () =>
   return { html }
 }
 
-export const floatMainNavbar = () =>
-{
+export const floatMainNavbar = () => {
   const html = /* html */`
   <div class="flex flex-col gap-y-3 uppercase h-full p-4">
       <a href="#/home" class="site-link floatLinks pb-1" data-link="home">Home</a>
@@ -27,8 +25,7 @@ export const floatMainNavbar = () =>
   return { html }
 }
 
-export const expensesNavbar = () =>
-{
+export const expensesNavbar = () => {
   const html = /* html */`
 
     <div class="flex items-center w-full uppercase text-slate-600 h-full px-6">
@@ -56,8 +53,7 @@ export const expensesNavbar = () =>
   return { html }
 }
 
-export const countsNavbar = () =>
-{
+export const countsNavbar = () => {
   const html = /* html */`
 
     <div class="flex items-center w-full uppercase text-slate-600 h-full px-6">
@@ -81,18 +77,18 @@ export const countsNavbar = () =>
   return { html }
 }
 
-export const siteHeader = () =>
-{
+export const siteHeader = () => {
   const html = /*html */ `<div class="pageName h-full flex items-center uppercase text-white px-6"></div>`
   return { html }
 }
 
-export const todayDate = () =>
-{
+export const todayDate = () => {
   let today = new Date()
   let year = today.getFullYear()
-  let month = String( today.getMonth() + 1 ).padStart( 2, '0' )
-  let date = String( today.getDate() ).padStart( 2, '0' )
-  let dateToday = `${ year }-${ month }-${ date }`
+  let month = String(today.getMonth() + 1).padStart(2, '0')
+  let date = String(today.getDate()).padStart(2, '0')
+  let dateToday = `${year}-${month}-${date}`
   return { year, month, date, dateToday }
 }
+
+export const monthsName = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
