@@ -2,6 +2,8 @@
 import { Home } from './views/home.js'
 
 import { Habits } from './views/habits.js'
+import { NewHabit } from "./views/habits/newHabit.js"
+import { HabitHistory } from "./views/habits/history.js"
 
 // Expense Components
 import { NewExpense } from './views/expenses/newExpense.js'
@@ -15,7 +17,7 @@ import { NewCount } from './views/counts/newCount.js'
 import { History } from './views/counts/history.js'
 
 // Common Components 
-import { mainNavbar, expensesNavbar, siteHeader, countsNavbar } from './components/common.js'
+import { mainNavbar, expensesNavbar, siteHeader, countsNavbar, habitsNavbar } from './components/common.js'
 import { highlightCurrentLink } from './app.js'
 
 // Listing the routes
@@ -27,6 +29,8 @@ const routes = {
   '/counts/history': History,
 
   '/habits': Habits,
+  '/habits/newHabit': NewHabit,
+  '/habits/history': HabitHistory,
 
   '/expenses/newExpense': NewExpense,
   '/expenses/ledger': Ledger,
@@ -52,11 +56,19 @@ export const router = () => {
       navbarContainer.innerHTML = expHtml
       if (typeof expInit === 'function') expInit()
     }
+
     else if (route.startsWith("/counts")) {
       const { html: countHtml, init: countInit } = countsNavbar()
       navbarContainer.innerHTML = countHtml
       if (typeof countInit === 'function') countInit()
     }
+
+    else if (route.startsWith("/habits")) {
+      const { html: habitsHtml, init: habitsInit } = habitsNavbar()
+      navbarContainer.innerHTML = habitsHtml
+      if (typeof habitsInit === "function") habitsInit()
+    }
+
     else {
       const { html: navbarHtml, init: navbarInit } = mainNavbar()
       navbarContainer.innerHTML = navbarHtml
