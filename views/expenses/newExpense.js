@@ -1,5 +1,4 @@
 import { todayDate } from '../../components/common.js'
-import { baseAmountArr } from '../../app.js'
 
 const { year, month } = todayDate()
 
