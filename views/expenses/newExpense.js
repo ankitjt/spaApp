@@ -1,4 +1,5 @@
 import { todayDate } from '../../components/common.js'
+import { baseAmountArr } from '../../app.js'
 
 const { year, month } = todayDate()
 
@@ -151,8 +152,9 @@ export const NewExpense = () =>
   </section>
   `
 
-  const init = () =>
+  const init = async () =>
   {
+
     const addExpenseButton = document.querySelector( ".addExpenseButton" )
     const expenseInputs = document.querySelectorAll( ".ex-expenseInputs" )
 

@@ -2,7 +2,8 @@ import { monthsName, todayDate, IndianDenom } from "../../components/common.js"
 
 const { year, month } = todayDate()
 
-export const BaseAmount = () => {
+export const BaseAmount = () =>
+{
 
   const baseAmountWrapper = /*html*/`
 
@@ -53,15 +54,17 @@ export const BaseAmount = () => {
   const html = /* html */`
     <section data-name="Base Amount"
   class="baseAmount pb-20 flex flex-col gap-y-5 transition-all ease-in-out duration-500 font-bold">
-    ${baseAmountWrapper}
-    ${history}
+    ${ baseAmountWrapper }
+    ${ history }
   </section>
   `
 
-  const init = () => {
-    const baseAmountHistory = document.querySelector(".baseAmountHistory")
 
-    const template = document.createElement("template")
+  const init = () =>
+  {
+    const baseAmountHistory = document.querySelector( ".baseAmountHistory" )
+
+    const template = document.createElement( "template" )
     template.innerHTML = /* html */`
         <div class="left">
           <span class="selectedMonth"></span>,
@@ -79,86 +82,103 @@ export const BaseAmount = () => {
     `
 
     // Show History 
-    db.collection("baseAmounts").onSnapshot(querySnapshot => {
+    db.collection( "baseAmounts" ).onSnapshot( querySnapshot =>
+    {
       baseAmountHistory.innerHTML = ""
-      querySnapshot.forEach(doc => {
-        const clone = template.content.cloneNode(true)
+      querySnapshot.forEach( doc =>
+      {
+        const clone = template.content.cloneNode( true )
 
-        clone.querySelector(".selectedMonth").textContent = monthsName[ Number(doc.data().selectedMonth) - 1 ]
-        clone.querySelector(".selectedYear").textContent = doc.data().selectedYear
-        clone.querySelector(".baseAmount").textContent = IndianDenom(doc.data().baseAmount)
 
-        let detailsWrapper = document.createElement("div")
-        detailsWrapper.classList.add("detailsWrapper", "flex", "items-center", "justify-between", "rounded-lg", "p-5", "bg-black", "text-white", "relative")
+
+        clone.querySelector( ".selectedMonth" ).textContent = monthsName[ Number( doc.data().selectedMonth ) - 1 ]
+        clone.querySelector( ".selectedYear" ).textContent = doc.data().selectedYear
+        clone.querySelector( ".baseAmount" ).textContent = IndianDenom( doc.data().baseAmount )
+
+        let detailsWrapper = document.createElement( "div" )
+        detailsWrapper.classList.add( "detailsWrapper", "flex", "items-center", "justify-between", "rounded-lg", "p-5", "bg-black", "text-white", "relative" )
         detailsWrapper.id = doc.id
 
-        detailsWrapper.appendChild(clone)
-        baseAmountHistory.appendChild(detailsWrapper)
+        detailsWrapper.appendChild( clone )
+        baseAmountHistory.appendChild( detailsWrapper )
 
-      })
-    })
+      } )
+    } )
 
     // Add Base Amount to Db 
-    const baseInputs = document.querySelectorAll(".baseInputs")
-    const addBaseAmount = document.querySelector(".addBaseAmount")
+    const baseInputs = document.querySelectorAll( ".baseInputs" )
+    const addBaseAmount = document.querySelector( ".addBaseAmount" )
 
-    addBaseAmount.addEventListener("click", async () => {
+    addBaseAmount.addEventListener( "click", async () =>
+    {
       let allFilled = true
       let formData = {}
 
-      baseInputs.forEach(input => {
-        if (input.value === "") {
+      baseInputs.forEach( input =>
+      {
+        if ( input.value === "" )
+        {
           allFilled = false
-          input.classList.add("border-2", "border-rose-600")
+          input.classList.add( "border-2", "border-rose-600" )
         }
-        else {
-          input.classList.remove("border-2", "border-rose-600")
+        else
+        {
+          input.classList.remove( "border-2", "border-rose-600" )
         }
-      })
+      } )
 
-      if (allFilled) {
+      if ( allFilled )
+      {
         let selectedMonth = 0
         let selectedYear = 0
-        baseInputs.forEach(input => {
-          if (input.type === "number") formData[ input.getAttribute("id") ] = input.value
-          if (input.type === "month") {
+        baseInputs.forEach( input =>
+        {
+          if ( input.type === "number" ) formData[ input.getAttribute( "id" ) ] = input.value
+          if ( input.type === "month" )
+          {
             const fieldValue = input.value
-            const getValues = fieldValue.split("-")
-            selectedMonth = Number(getValues[ 1 ])
-            selectedYear = Number(getValues[ 0 ])
+            const getValues = fieldValue.split( "-" )
+            selectedMonth = Number( getValues[ 1 ] )
+            selectedYear = Number( getValues[ 0 ] )
           }
-        })
+        } )
 
         formData[ "selectedMonth" ] = selectedMonth
         formData[ "selectedYear" ] = selectedYear
         formData[ "firebaseTimestamp" ] = firebase.firestore.FieldValue.serverTimestamp()
-        formData[ "systemMonth" ] = Number(month)
+        formData[ "systemMonth" ] = Number( month )
         formData[ "systemYear" ] = year
 
-        try {
-          await db.collection("baseAmounts").add(formData)
-          console.log("Data added.")
-          baseInputs.forEach(input => input.value = "")
+        try
+        {
+          await db.collection( "baseAmounts" ).add( formData )
+          console.log( "Data added." )
+          baseInputs.forEach( input => input.value = "" )
         }
-        catch (err) {
-          console.log(err)
+        catch ( err )
+        {
+          console.log( err )
         }
       }
-    })
+    } )
 
     // Delete Entry
-    baseAmountHistory.addEventListener("click", async e => {
-      if (e.target.classList.contains("deleteEntryIcon")) {
-        const entryID = e.target.closest(".detailsWrapper").id
-        if (confirm("Do you want to delete the record?")) {
-          try {
-            await db.collection("baseAmounts").doc(entryID).delete()
-            console.log("Record Deleted")
+    baseAmountHistory.addEventListener( "click", async e =>
+    {
+      if ( e.target.classList.contains( "deleteEntryIcon" ) )
+      {
+        const entryID = e.target.closest( ".detailsWrapper" ).id
+        if ( confirm( "Do you want to delete the record?" ) )
+        {
+          try
+          {
+            await db.collection( "baseAmounts" ).doc( entryID ).delete()
+            console.log( "Record Deleted" )
           }
-          catch (err) { console.log(err) }
+          catch ( err ) { console.log( err ) }
         }
       }
-    })
+    } )
   }
 
   return { html, init }
